@@ -57,9 +57,11 @@ public class PostResource {
                               @HeaderParam("followerId") Long followerId){
 
         User user = userRepository.findById(userId);
+
         if(user == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
         if(followerId == null){
             return Response.status(Response.Status.BAD_REQUEST).entity("Your forgot the header followerId")
                     .build();
@@ -73,11 +75,11 @@ public class PostResource {
 
         boolean follows = followerRepository.follows(follower, user);
 
-//        if(!follows){
-//            return Response.status(Response.Status.FORBIDDEN)
-//                    .entity("You cannot see this post because you don't follow the user")
-//                    .build();
-//        }
+        if(!follows){
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity("You cannot see this post because you don't follow the user")
+                    .build();
+        }
         PanacheQuery<Post> query = repository.find("user",
                 Sort.by("dateTime", Sort.Direction.Descending),user);
 
