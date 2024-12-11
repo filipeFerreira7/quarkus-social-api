@@ -63,13 +63,13 @@ public class PostResource {
         }
 
         if(followerId == null){
-            return Response.status(Response.Status.BAD_REQUEST).entity("Your forgot the header followerId")
+            return Response.status(Response.Status.BAD_REQUEST).entity("You forgot the header followerId")
                     .build();
         }
 
         User follower = userRepository.findById(followerId);
         if(follower == null){
-            return Response.status(Response.Status.BAD_REQUEST).entity("inexistent follower followerId")
+            return Response.status(Response.Status.BAD_REQUEST).entity("Inexistent followerId")
                     .build();
         }
 
